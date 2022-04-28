@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useQuery, gql } from '@apollo/client';
 import Graph from 'vis-react';
+import Neovis from 'neovis.js';
 
 
 const query= gql `
@@ -45,9 +46,7 @@ var options = {
 };
 
 function App() {
-  const result= useQuery(query)
-
-  console.log(result)
+  // const result= useQuery(query)
 
 
   function renderGraph(){
@@ -55,16 +54,16 @@ function App() {
     var newNodos=[]
     var newEdges=[]
 
-    for (let index = 0; index < result.data.departamentos.length; index++) {
-      var nodo = {id:"d"+ result.data.departamentos[index].codigo_departamento, label: result.data.departamentos[index].nombre }
-      newNodos.push(nodo)
-        for (let index2 = 0; index2 < result.data.departamentos[index].municipios.length; index2++) {
-          var nodo2 = {id:"m"+ result.data.departamentos[index].codigo_departamento+"m"+(index2+1), label: result.data.departamentos[index].municipios[index2].nombre }
-          newNodos.push(nodo2)
-          var edge1={from:"d"+ result.data.departamentos[index].codigo_departamento, to:"m"+ result.data.departamentos[index].codigo_departamento+"m"+(index2+1)}
-          newEdges.push(edge1)
-        }
-    }
+    // for (let index = 0; index < result.data.departamentos.length; index++) {
+    //   var nodo = {id:"d"+ result.data.departamentos[index].codigo_departamento, label: result.data.departamentos[index].nombre }
+    //   newNodos.push(nodo)
+    //     for (let index2 = 0; index2 < result.data.departamentos[index].municipios.length; index2++) {
+    //       var nodo2 = {id:"m"+ result.data.departamentos[index].codigo_departamento+"m"+(index2+1), label: result.data.departamentos[index].municipios[index2].nombre }
+    //       newNodos.push(nodo2)
+    //       var edge1={from:"d"+ result.data.departamentos[index].codigo_departamento, to:"m"+ result.data.departamentos[index].codigo_departamento+"m"+(index2+1)}
+    //       newEdges.push(edge1)
+    //     }
+    // }
     console.log("nodos", newNodos)
     return <Graph
           graph={{nodes:newNodos, edges:newEdges}}
@@ -76,24 +75,21 @@ function App() {
     <div className="App">
       <header className="App-header">
         
-        {result.data &&
+        {/* {result.data &&
         <p>
           {renderGraph()}
           {result.data.departamentos.map((data, index)=>{
 
             var newNodes=[]
-
-            
-
             return <p key={index}>{data.nombre}</p>
           })}
-        </p>}
+        </p>} */}
 
 
         <Graph
         graph={graph}
         options={options}
-        />,
+        />
 
       </header>
     </div>
