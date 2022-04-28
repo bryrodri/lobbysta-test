@@ -1,8 +1,11 @@
-import logo from './logo.svg';
+import { useEffect, useRef, useState } from 'react'
 import './App.css';
 import { useQuery, gql } from '@apollo/client';
 import Graph from 'vis-react';
 import Neovis from 'neovis.js';
+
+//componente
+import NeoGraph from './components/neoGraph'
 
 
 const query= gql `
@@ -47,8 +50,8 @@ var options = {
 
 function App() {
   // const result= useQuery(query)
-
-
+  const [searchVar, setSearchVar]= useState("")
+  const [searchBool, setSearchBool]= useState(false)
   function renderGraph(){
 
     var newNodos=[]
@@ -84,12 +87,23 @@ function App() {
             return <p key={index}>{data.nombre}</p>
           })}
         </p>} */}
+        <input value={searchVar} onChange={(e)=>{setSearchVar(e.target.value)}}></input>
+        <button onClick={()=>{setSearchBool(true)}} > search</button>
 
+        <NeoGraph
+          width={700}
+          height={700}
+          containerId={"id1"}
+          backgroundColor={"#fff"}
+          searchBool={searchBool}
+          searchVar={searchVar}
+          setSearchBool={setSearchBool}
+        />
 
-        <Graph
+        {/* <Graph
         graph={graph}
         options={options}
-        />
+        /> */}
 
       </header>
     </div>
